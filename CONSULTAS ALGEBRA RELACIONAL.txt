@@ -1,0 +1,57 @@
+CONSULTAS ALGEBRA RELACIONAL 
+
+ //Consulta 1
+// Mostrar los productos tipo "Cápsulas" que son comprados
+
+π nombre, tipo, cantidad, total (σ tipo = 'Capsulas' (detalle_compra ⋈ producto))
+
+SELECT p.nombre, p.tipo, dc.cantidad, dc.total
+FROM detalle_compra dc
+INNER JOIN producto p ON dc.id_producto = p.id_producto
+WHERE p.tipo = 'Capsulas';
+
+//Consulta 2
+//Identificar los productos con precios mayor a $10
+
+π nombre, marca, precio(σ precio > 10 (Producto))
+
+SELECT nombre, marca, precio
+FROM producto
+WHERE precio > 10; 
+
+//Consulta 3
+//Obtener el nombre del producto, la marca y el RUC del proveedor para el artículo con nombre 'Zinc'." 
+
+π nombre, marca, ruc(σ nombre=′Zinc′(Producto⋈Producto.id_proveedor=Proveedor.id_proveedor Proveedor)) 
+
+SELECT producto.nombre, producto.marca, proveedor.ruc
+FROM producto
+JOIN proveedor
+ON proveedor.id_proveedor = producto.id_proveedor
+WHERE producto.nombre = 'Zinc';
+
+//Consulta 4
+//Obtener los usuarios con sus respectivos credenciales
+
+π nombres, apellidos, nombre_usuario(Usuario  ⋈ Usuario.id_usuario = Credencial.id_usuario Credencial)
+
+SELECT usuario.nombres, usuario.apellidos, credencial.nombre_usuario
+FROM usuario
+JOIN credencial
+ON credencial.id_usuario = usuario.id_usuario; 
+
+//Consulta 5 
+// Mostrar el stock bajo con el proveedor responsible. 
+
+π nombre, stock, nombres AS proveedor, telefono (σ stock ≤ 20 (producto ⋈ proveedor)) 
+
+SELECT p.nombre, p.stock, pv.nombres AS proveedor, pv.telefono 
+FROM producto p 
+INNER JOIN proveedor pv ON p.id_proveedor = pv.id_proveedor 
+WHERE p.stock <= 20; 
+
+
+
+
+
+
